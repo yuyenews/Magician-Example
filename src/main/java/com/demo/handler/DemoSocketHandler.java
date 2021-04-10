@@ -1,7 +1,7 @@
 package com.demo.handler;
 
-import com.mars.server.tcp.websocket.WebSocketSession;
-import com.mars.server.tcp.websocket.handler.WebSocketHandler;
+import io.magician.tcp.websocket.WebSocketSession;
+import io.magician.tcp.websocket.handler.WebSocketHandler;
 
 /**
  * WebSocket暂时不可用，可以忽略这个类
