@@ -14,7 +14,7 @@ public class DemoRequestHandler implements MagicianHandler {
         for(String key : magicianRequest.getRequestHeaders().keySet()){
             System.out.println(key+":"+magicianRequest.getRequestHeaders().get(key));
         }
-
+        magicianRequest.getRequestHeaders();
         // 如果是json格式提交的，就用这个方法获取参数字符串
         String jsonStr = magicianRequest.getJsonParam();
         System.out.println(jsonStr);
