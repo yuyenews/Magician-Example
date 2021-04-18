@@ -10,7 +10,6 @@ public class DemoRequestHandler implements MagicianHandler {
 
     @Override
     public void request(MagicianRequest magicianRequest) {
-
         for(String key : magicianRequest.getRequestHeaders().keySet()){
             System.out.println(key+":"+magicianRequest.getRequestHeaders().get(key));
         }
@@ -25,13 +24,12 @@ public class DemoRequestHandler implements MagicianHandler {
         Map<String, MagicianFileUpLoad> fileUpLoadMap = magicianRequest.getFiles();
         // 可以这样获取到文件
         MagicianFileUpLoad magicianFileUpLoad = fileUpLoadMap.get("file2");
-        magicianFileUpLoad.getFileName();// 文件名
-        magicianFileUpLoad.getInputStream(); // 文件流
-        magicianFileUpLoad.getName();// 参数的name
+//        System.out.println(magicianFileUpLoad.getFileName());// 文件名
+//        System.out.println(magicianFileUpLoad.getInputStream()); // 文件流
+//        System.out.println(magicianFileUpLoad.getName());// 参数的name
 
         // 设置响应数据
         magicianRequest.getResponse()
-                .setResponseHeader("content-type", "application/json;charset=UTF-8")
                 .sendText(200, "ok");
     }
 }

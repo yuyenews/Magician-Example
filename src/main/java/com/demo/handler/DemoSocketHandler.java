@@ -30,5 +30,10 @@ public class DemoSocketHandler implements WebSocketHandler {
     @Override
     public void onMessage(String message, WebSocketSession webSocketSession) {
         System.out.println("收到了消息"+message);
+        try{
+            webSocketSession.send("我收到了");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
