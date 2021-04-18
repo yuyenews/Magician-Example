@@ -4,12 +4,12 @@ import io.magician.tcp.websocket.WebSocketSession;
 import io.magician.tcp.websocket.handler.WebSocketHandler;
 
 /**
- * WebSocket暂时不可用，可以忽略这个类
+ * WebSocket
  */
 public class DemoSocketHandler implements WebSocketHandler {
 
     /**
-     * WebSocket暂时不可用，可以忽略这个类
+     * 有连接进来时调用
      */
     @Override
     public void onOpen(WebSocketSession webSocketSession) {
@@ -17,7 +17,7 @@ public class DemoSocketHandler implements WebSocketHandler {
     }
 
     /**
-     * WebSocket暂时不可用，可以忽略这个类
+     * 连接断开时调用
      */
     @Override
     public void onClose(WebSocketSession webSocketSession) {
@@ -25,7 +25,7 @@ public class DemoSocketHandler implements WebSocketHandler {
     }
 
     /**
-     * WebSocket暂时不可用，可以忽略这个类
+     * 有消息进来时调用
      */
     @Override
     public void onMessage(String message, WebSocketSession webSocketSession) {
