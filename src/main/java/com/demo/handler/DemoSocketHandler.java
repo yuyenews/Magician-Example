@@ -1,7 +1,8 @@
 package com.demo.handler;
 
-import io.magician.tcp.websocket.WebSocketSession;
-import io.magician.tcp.websocket.handler.WebSocketHandler;
+
+import io.magician.tcp.codec.impl.websocket.connection.WebSocketSession;
+import io.magician.tcp.codec.impl.websocket.handler.WebSocketHandler;
 
 /**
  * WebSocket

@@ -4,25 +4,37 @@ import com.demo.handler.DemoRequestHandler;
 import com.demo.handler.DemoSocketHandler;
 import com.demo.handler.DemoUDPHandler;
 import io.magician.Magician;
+import io.magician.common.constant.EventEnum;
+import io.magician.common.event.EventGroup;
+import io.magician.tcp.TCPServerConfig;
+
+import java.util.concurrent.Executors;
 
 public class DemoServer {
 
     public static void main(String[] args) throws Exception {
-        /* 创建http服务 */
-        Magician.createHttpServer()
-                .threadSize(5)
-                .fileSizeMax(1024*1024*1024)
-                .sizeMax(1024*1024*1024)
+
+        TCPServerConfig tcpServerConfig = new TCPServerConfig();
+        tcpServerConfig.setFileSizeMax(1024*1024*1024);
+        tcpServerConfig.setSizeMax(1024*1024*1024);
+
+        EventGroup ioEventGroup = new EventGroup(1, Executors.newCachedThreadPool());
+        EventGroup workerEventGroup = new EventGroup(10, Executors.newCachedThreadPool());
+
+        workerEventGroup.setSteal(EventEnum.STEAL.YES);
+
+        /* 创建TCP服务，默认采用http解码器，支持webSocket */
+        Magician.createTCPServer(ioEventGroup, workerEventGroup)
+                .config(tcpServerConfig)
+                .soTimeout(3000)
                 .httpHandler("/", new DemoRequestHandler())
                 .webSocketHandler("/websocket", new DemoSocketHandler())
                 .bind(8080, 1000).start();
 
-        /* ****实战中不能这样写，因为每个服务创建完都会阻塞主线程，所以会导致下面的代码执行不到**** */
 
-        /* 创建UDP服务 */
+        /* ************************创建UDP服务************************ */
         Magician.createUdpServer()
                 .bind(8088)
-                .threadSize(5)
                 .readSize(65507)
                 .handler(new DemoUDPHandler())
                 .start();
