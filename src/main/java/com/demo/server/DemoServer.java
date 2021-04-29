@@ -27,7 +27,7 @@ public class DemoServer {
         Magician.createTCPServer(ioEventGroup, workerEventGroup)
                 .config(tcpServerConfig)
                 .soTimeout(3000)
-                .httpHandler("/", new DemoRequestHandler())
+                .handler("/", new DemoRequestHandler())
                 .webSocketHandler("/websocket", new DemoSocketHandler())
                 .bind(8080, 1000).start();
 
