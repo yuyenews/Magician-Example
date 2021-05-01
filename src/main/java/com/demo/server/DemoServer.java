@@ -8,6 +8,7 @@ import io.magician.common.constant.EventEnum;
 import io.magician.common.event.EventGroup;
 import io.magician.tcp.TCPServer;
 import io.magician.tcp.TCPServerConfig;
+import io.magician.tcp.codec.impl.http.HttpProtocolCodec;
 
 import java.util.concurrent.Executors;
 
@@ -18,6 +19,7 @@ public class DemoServer {
         TCPServerConfig tcpServerConfig = new TCPServerConfig();
         tcpServerConfig.setFileSizeMax(1024*1024*1024);
         tcpServerConfig.setSizeMax(1024*1024*1024);
+        tcpServerConfig.setReadSize(1024);
 
         EventGroup ioEventGroup = new EventGroup(2, Executors.newCachedThreadPool());
         EventGroup workerEventGroup = new EventGroup(10, Executors.newCachedThreadPool());
@@ -27,6 +29,7 @@ public class DemoServer {
         TCPServer tcpServer = Magician.createTCPServer(ioEventGroup, workerEventGroup)
                 .config(tcpServerConfig)
                 .soTimeout(3000)
+                .protocolCodec(new HttpProtocolCodec(tcpServerConfig))
                 .handler("/", new DemoRequestHandler())
                 .webSocketHandler("/websocket", new DemoSocketHandler());
 
