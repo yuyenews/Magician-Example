@@ -7,10 +7,8 @@ import io.magician.tcp.codec.impl.http.request.MagicianRequest;
 import io.magician.tcp.handler.MagicianHandler;
 
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class DemoRequestHandler implements MagicianHandler<MagicianRequest> {
-    AtomicInteger atomicInteger = new AtomicInteger();
 
     @Override
     public void request(MagicianRequest magicianRequest) {
@@ -27,10 +25,14 @@ public class DemoRequestHandler implements MagicianHandler<MagicianRequest> {
         /* *********如果是文件上传就用这个方法获取文件们********* */
         Map<String, MagicianFileUpLoad> fileUpLoadMap = magicianRequest.getFiles();
         // 可以这样获取到文件
-        MagicianFileUpLoad magicianFileUpLoad = fileUpLoadMap.get("file2");
-        System.out.println(magicianFileUpLoad.getFileName());// 文件名
-        System.out.println(magicianFileUpLoad.getInputStream()); // 文件流
-        System.out.println(magicianFileUpLoad.getName());// 参数的name
+        if(fileUpLoadMap != null){
+            MagicianFileUpLoad magicianFileUpLoad = fileUpLoadMap.get("file2");
+            if(magicianFileUpLoad != null){
+                System.out.println(magicianFileUpLoad.getFileName());// 文件名
+                System.out.println(magicianFileUpLoad.getInputStream()); // 文件流
+                System.out.println(magicianFileUpLoad.getName());// 参数的name
+            }
+        }
 
         // 设置响应数据
         magicianRequest.getResponse()
