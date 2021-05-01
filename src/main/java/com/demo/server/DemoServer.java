@@ -6,6 +6,7 @@ import com.demo.handler.DemoUDPHandler;
 import io.magician.Magician;
 import io.magician.common.constant.EventEnum;
 import io.magician.common.event.EventGroup;
+import io.magician.tcp.TCPServer;
 import io.magician.tcp.TCPServerConfig;
 
 import java.util.concurrent.Executors;
@@ -18,26 +19,25 @@ public class DemoServer {
         tcpServerConfig.setFileSizeMax(1024*1024*1024);
         tcpServerConfig.setSizeMax(1024*1024*1024);
 
-        EventGroup ioEventGroup = new EventGroup(1, Executors.newCachedThreadPool());
+        EventGroup ioEventGroup = new EventGroup(2, Executors.newCachedThreadPool());
         EventGroup workerEventGroup = new EventGroup(10, Executors.newCachedThreadPool());
-
         workerEventGroup.setSteal(EventEnum.STEAL.YES);
 
         /* 创建TCP服务，默认采用http解码器，支持webSocket */
-        Magician.createTCPServer(ioEventGroup, workerEventGroup)
+        TCPServer tcpServer = Magician.createTCPServer(ioEventGroup, workerEventGroup)
                 .config(tcpServerConfig)
                 .soTimeout(3000)
                 .handler("/", new DemoRequestHandler())
-                .webSocketHandler("/websocket", new DemoSocketHandler())
-                .bind(8080, 1000).start();
+                .webSocketHandler("/websocket", new DemoSocketHandler());
 
+        tcpServer.bind(8080);
+        tcpServer.bind(8088);
 
         /* ************************创建UDP服务************************ */
         Magician.createUdpServer()
-                .bind(8088)
                 .readSize(65507)
                 .handler(new DemoUDPHandler())
-                .start();
+                .bind(8088);
     }
 
 }
