@@ -15,6 +15,11 @@ public class DemoSocketHandler implements WebSocketHandler {
     @Override
     public void onOpen(WebSocketSession webSocketSession) {
         System.out.println("连接了websocket");
+        try{
+            webSocketSession.send("已经连上了");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
