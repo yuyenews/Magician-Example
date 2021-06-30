@@ -22,6 +22,8 @@ public class DemoRequestHandler implements MagicianHandler<MagicianRequest> {
         /* *********如果是其他方式提交的，就用这个方法获取参数********* */
         String list = magicianRequest.getParam("参数的name");
 
+        System.out.println(magicianRequest.getMagicianParams());
+
         /* *********如果是文件上传就用这个方法获取文件们********* */
         Map<String, MagicianFileUpLoad> fileUpLoadMap = magicianRequest.getFiles();
         // 可以这样获取到文件
