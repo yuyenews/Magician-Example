@@ -37,7 +37,12 @@ public class DemoSocketHandler implements WebSocketHandler {
     public void onMessage(String message, WebSocketSession webSocketSession) {
         System.out.println("收到了消息"+message);
         try{
-            webSocketSession.send("我收到了");
+            StringBuffer msg = new StringBuffer();
+            for(int i=0;i<125;i++){
+                msg.append("h");
+            }
+            msg.append("$");
+            webSocketSession.send(msg.toString());
         } catch (Exception e){
             e.printStackTrace();
         }
