@@ -22,14 +22,14 @@ public class DemoServer {
         tcpServerConfig.setReadSize(1024);
 
         EventGroup ioEventGroup = new EventGroup(2, Executors.newCachedThreadPool());
-        EventGroup workerEventGroup = new EventGroup(10, Executors.newCachedThreadPool());
+        EventGroup workerEventGroup = new EventGroup(2, Executors.newCachedThreadPool());
         workerEventGroup.setSteal(EventEnum.STEAL.YES);
 
         /* 创建TCP服务，默认采用http解码器，支持webSocket */
         TCPServer tcpServer = Magician.createTCPServer(ioEventGroup, workerEventGroup)
                 .config(tcpServerConfig)
                 .soTimeout(3000)
-                .protocolCodec(new HttpProtocolCodec(tcpServerConfig))
+                .protocolCodec(new HttpProtocolCodec())
                 .handler("/", new DemoRequestHandler())
                 .webSocketHandler("/websocket", new DemoSocketHandler());
 

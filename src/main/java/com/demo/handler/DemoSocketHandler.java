@@ -38,7 +38,7 @@ public class DemoSocketHandler implements WebSocketHandler {
         System.out.println("收到了消息"+message);
         try{
             StringBuffer msg = new StringBuffer();
-            for(int i=0;i<125;i++){
+            for(int i=0;i<12500;i++){
                 msg.append("h");
             }
             msg.append("$");
