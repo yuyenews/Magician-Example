@@ -1,8 +1,5 @@
 package com.demo.server;
 
-import com.demo.handler.DemoRequestHandler;
-import com.demo.handler.DemoSocketHandler;
-import com.demo.handler.DemoUDPHandler;
 import io.magician.Magician;
 import io.magician.common.constant.EventEnum;
 import io.magician.common.event.EventGroup;
@@ -29,9 +26,8 @@ public class DemoServer {
         TCPServer tcpServer = Magician.createTCPServer(ioEventGroup, workerEventGroup)
                 .config(tcpServerConfig)
                 .soTimeout(3000)
-                .protocolCodec(new HttpProtocolCodec())
-                .handler("/", new DemoRequestHandler())
-                .webSocketHandler("/websocket", new DemoSocketHandler());
+                .scan("com.demo.handler")
+                .protocolCodec(new HttpProtocolCodec());
 
         tcpServer.bind(8080);
         tcpServer.bind(8088);
@@ -39,7 +35,7 @@ public class DemoServer {
         /* ************************创建UDP服务************************ */
         Magician.createUdpServer()
                 .readSize(65507)
-                .handler(new DemoUDPHandler())
+                .scan("com.demo.handler")
                 .bind(8088);
     }
 

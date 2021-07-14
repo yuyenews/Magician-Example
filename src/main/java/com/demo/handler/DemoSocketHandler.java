@@ -1,13 +1,15 @@
 package com.demo.handler;
 
 
+import io.magician.common.annotation.WebSocketHandler;
 import io.magician.tcp.codec.impl.websocket.connection.WebSocketSession;
-import io.magician.tcp.codec.impl.websocket.handler.WebSocketHandler;
+import io.magician.tcp.handler.WebSocketBaseHandler;
 
 /**
  * WebSocket
  */
-public class DemoSocketHandler implements WebSocketHandler {
+@WebSocketHandler(path = "/websocket")
+public class DemoSocketHandler implements WebSocketBaseHandler {
 
     /**
      * 有连接进来时调用

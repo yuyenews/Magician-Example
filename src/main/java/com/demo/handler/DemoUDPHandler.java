@@ -1,10 +1,12 @@
 package com.demo.handler;
 
-import io.magician.udp.handler.MagicianUDPHandler;
+import io.magician.common.annotation.UDPHandler;
+import io.magician.udp.handler.UDPBaseHandler;
 
 import java.io.ByteArrayOutputStream;
 
-public class DemoUDPHandler implements MagicianUDPHandler {
+@UDPHandler
+public class DemoUDPHandler implements UDPBaseHandler {
 
     @Override
     public void receive(ByteArrayOutputStream byteArrayOutputStream) {

@@ -1,14 +1,16 @@
 package com.demo.handler;
 
+import io.magician.common.annotation.TCPHandler;
 import io.magician.tcp.codec.impl.http.model.MagicianFileUpLoad;
 import io.magician.tcp.codec.impl.http.request.MagicianRequest;
-import io.magician.tcp.handler.MagicianHandler;
+import io.magician.tcp.handler.TCPBaseHandler;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Map;
 
-public class DemoRequestHandler implements MagicianHandler<MagicianRequest> {
+@TCPHandler(path = "/")
+public class DemoRequestHandler implements TCPBaseHandler<MagicianRequest> {
 
     @Override
     public void request(MagicianRequest magicianRequest) {
